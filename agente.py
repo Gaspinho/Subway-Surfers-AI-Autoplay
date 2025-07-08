@@ -38,7 +38,7 @@ n_steps = n_step.NStepProgress(ai=ai, env=senv, n_step=7)
 memory = replay_memory.ReplayMemory(n_steps=n_steps, capacity=5000)
 
 # Promedio móvil para evaluar el rendimiento del agente
-ma = prom_movimiento.MA(500)
+ma = prom_movimiento.MovingAverage(500)
 
 # Función para cargar el modelo previamente guardado
 def load():
