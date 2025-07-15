@@ -25,11 +25,11 @@ class env:
     def _is_play_button_visible(self, confidence=0.7):
         try:
             
-            play_image_path = 'images/play.png'
+            play_image_path = 'imagenes/play.png'
             
             # revisa si la imagen play.png existe antes de buscarla
             if not os.path.exists(play_image_path):
-                print(f"Warning: {play_image_path} not found!")
+                print(f"Error: {play_image_path} not found!")
                 return False
                 
             result = pyautogui.locateOnScreen(play_image_path, confidence=confidence)
@@ -37,13 +37,13 @@ class env:
         except pyautogui.ImageNotFoundException:
             return False
         except Exception as e:
-            print(f"Error checking for play button: {e}")
+            print(f"Error checkiando boton de play: {e}")
             return False
     
     # metodo que obtiene el centro del boton de play en la pantalla.
     def _get_play_button_center(self, confidence=0.7):
         try:
-            play_image_path = 'images/play.png'
+            play_image_path = 'imagenes/play.png'
             return pyautogui.locateCenterOnScreen(play_image_path, confidence=confidence)
         except pyautogui.ImageNotFoundException:
             return None
@@ -52,7 +52,7 @@ class env:
             return None
     
     def reset(self):
-        print("Waiting for play button...")
+        print("Esperando boton de play...")
         max_attempts = 100  
         attempts = 0
         
@@ -62,23 +62,23 @@ class env:
                 if center:
                     x, y = center
                     pyautogui.click(x, y)
-                    print("Play button clicked!")
+                    print("Boton Play clickeado!")
                     break
                 else:
-                    print("Found play button but couldn't get center coordinates")
+                    print("Error: No se pudo obtener el centro del boton de play.")
             
             time.sleep(0.1)
             attempts += 1
             
             if attempts % 50 == 0: 
-                print(f"Still waiting for play button... (attempt {attempts})")
+                print(f"Esperando Boton de play... (attempt {attempts})")
         
         if attempts >= max_attempts:
-            print("Warning: Could not find play button after maximum attempts")
+            print("Warning: No se pudo encontrar el boton de play despues de varios intentos.")
             # screenshot para depurar
             screenshot = pyautogui.screenshot()
             screenshot.save('debug_screenshot.png')
-            print("Debug screenshot saved as 'debug_screenshot.png'")
+            print("Debug screenshot guardada en 'debug_screenshot.png'")
         
         time.sleep(2.5)
         region = (
@@ -110,6 +110,6 @@ class env:
         reward = 2
         if Done:
             reward = -10
-            print("Game over detected!")
+            print("Game over detectado!")
             
         return (next_state, reward, Done, {})

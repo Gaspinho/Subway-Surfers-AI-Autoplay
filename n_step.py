@@ -39,21 +39,21 @@ class NStepProgress:
             t = action[0][0]
 
             if(t == 1):     #left
-                print("left")
+                print("izquierda")
             elif (t == 2):  #right
-                print("right")
+                print("derecha")
             elif (t == 3):  #roll
-                print("jump")
+                print("saltar")
             elif (t == 4):  #jump
-                print("roll")
+                print("rueda")
             elif (t == 0):  #no op
-                print("do nothing")
+                print("hacer nada")
 
         
             next_state, r, is_done, _ = self.env.step(action) 
 
             if(is_done):
-                print("\nGame Ended\n")
+                print("\nJuego Terminado\n")
                 if len(end_buffer)>=3:
                     state, action = end_buffer[-3]
                     history.pop() 
